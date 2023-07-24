@@ -1,0 +1,69 @@
+I have simple online shop that sells craft items. for this shop im using express and mongodb as my backend.
+
+in this mongodb database i have collections for users, products, category, and orders. 
+
+can you suggest me best collection schemas for each of them ?
+
+
+this is my updated users collection
+{
+  _id: ObjectId,
+  username: String,
+  email: String,
+  password: String,
+  phone: String,
+  role: String,  
+  createdAt: Date,
+  updatedAt: Date
+}
+
+
+this is my updated Category Collection:
+
+{
+  _id: ObjectId,
+  name: String,
+  description: String,
+  image: String,
+  status: boolean, 
+  createdAt: Date,
+  updatedAt: Date
+}
+
+can you provide me best crud operations for this with typescript
+
+this is my updated Products Collection:
+{
+  _id: ObjectId,
+  name: String,
+  description: String,
+  price: Number,
+  category: ObjectId,  
+  stock: Number,
+  images: [String],
+  status: boolean, 
+  createdAt: Date,
+  updatedAt: Date
+}
+can you provide me best crud operations for this with typescript
+
+this is my updated Orders Collection:
+{
+  {
+  _id: ObjectId, 
+  products: [
+    {
+      product: ObjectId, 
+      quantity: Number
+    }
+  ],
+  totalAmount: Number,
+  customerName : String,
+  contactNumber: String,
+  shippingAddress: String,
+  status: String,  
+  createdAt: Date,
+  updatedAt: Date
+}
+}
+can you provide me best crud operations for this with typescript
