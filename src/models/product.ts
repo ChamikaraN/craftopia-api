@@ -1,7 +1,7 @@
 // models/productModel.ts
 import mongoose, { Document, Schema } from "mongoose";
 
-export interface ProductDocument extends Document {
+export interface IProduct extends Document {
   name: string;
   description: string;
   price: number;
@@ -13,17 +13,45 @@ export interface ProductDocument extends Document {
   updatedAt: Date;
 }
 
-const productSchema: Schema<ProductDocument> = new mongoose.Schema({
-  name: String,
-  description: String,
-  price: Number,
-  category: { type: Schema.Types.ObjectId, ref: "Category" },
-  stock: Number,
-  images: [String],
-  status: Boolean,
-  createdAt: Date,
-  updatedAt: Date,
+const productSchema: Schema<IProduct> = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: "Category",
+    required: true,
+  },
+  stock: {
+    type: Number,
+    required: true,
+  },
+  images: {
+    type: [String],
+    required: true,
+  },
+  status: {
+    type: Boolean,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    required: true,
+  },
+  updatedAt: {
+    type: Date,
+    required: true,
+  },
 });
 
-const Product = mongoose.model<ProductDocument>("Product", productSchema);
+const Product = mongoose.model<IProduct>("Product", productSchema);
 export default Product;

@@ -2,7 +2,7 @@ import { format, createLogger, transports } from "winston";
 import DailyRotateFile from "winston-daily-rotate-file";
 
 const { combine, timestamp, label, prettyPrint } = format;
-const CATEGORY = "EmpMngSys";
+const CATEGORY = "craftopia";
 
 let loggerTransports = [
   new transports.Console(),

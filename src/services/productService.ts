@@ -1,5 +1,5 @@
 // services/productService.ts
-import Product, { ProductDocument } from "../models/productModel";
+import Product, { IProduct } from "../models/product";
 
 class ProductService {
   async createProduct(
@@ -10,7 +10,7 @@ class ProductService {
     stock: number,
     images: string[],
     status: boolean
-  ): Promise<ProductDocument> {
+  ): Promise<IProduct> {
     const newProduct = new Product({
       name,
       description,
@@ -25,11 +25,11 @@ class ProductService {
     return await newProduct.save();
   }
 
-  async getAllProducts(): Promise<ProductDocument[]> {
+  async getAllProducts(): Promise<IProduct[]> {
     return await Product.find();
   }
 
-  async getProductById(id: string): Promise<ProductDocument | null> {
+  async getProductById(id: string): Promise<IProduct | null> {
     return await Product.findById(id);
   }
 
@@ -42,7 +42,7 @@ class ProductService {
     stock: number,
     images: string[],
     status: boolean
-  ): Promise<ProductDocument | null> {
+  ): Promise<IProduct | null> {
     return await Product.findByIdAndUpdate(
       id,
       {
@@ -59,7 +59,7 @@ class ProductService {
     );
   }
 
-  async deleteProduct(id: string): Promise<ProductDocument | null> {
+  async deleteProduct(id: string): Promise<IProduct | null> {
     return await Product.findByIdAndDelete(id);
   }
 }

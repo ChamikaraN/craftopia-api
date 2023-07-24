@@ -1,14 +1,5 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 
-export interface IEmployee extends Document {
-  first_name: string;
-  last_name: string;
-  email: string;
-  number: string;
-  gender: string;
-  photo: string;
-}
-
 export interface ICategory extends Document {
   name: string;
   description: string;

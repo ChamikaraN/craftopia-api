@@ -66,4 +66,4 @@ this is my updated Orders Collection:
   updatedAt: Date
 }
 }
-can you provide me best crud operations for this with typescript
+can you provide me best crud operations for this with typescript. I need separate model,route,controller and service files
