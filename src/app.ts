@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const allowedOrigins = [
   "https://employee-management-frontend-chami.vercel.app",
-  "http://localhost:3000",
+  "http://localhost:5173",
 ];
 app.use(
   cors({

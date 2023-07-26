@@ -35,7 +35,6 @@ async function generateOrders() {
           quantity,
         });
       }
-      logger.info(orderProducts);
       const order = new Order({
         products: orderProducts,
         totalAmount: calculateTotalAmount(orderProducts),
