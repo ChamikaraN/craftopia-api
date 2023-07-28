@@ -2,26 +2,19 @@
 import Product, { IProduct } from "../models/product";
 
 class ProductService {
-  async createProduct(
-    name: string,
-    description: string,
-    price: number,
-    category: string,
-    stock: number,
-    images: string[],
-    status: boolean
-  ): Promise<IProduct> {
+  async createProduct(product: IProduct): Promise<IProduct> {
     const newProduct = new Product({
-      name,
-      description,
-      price,
-      category,
-      stock,
-      images,
-      status,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      category: product.category,
+      stock: product.stock,
+      image: product.image,
+      status: product.status,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
+
     return await newProduct.save();
   }
 
@@ -40,7 +33,7 @@ class ProductService {
     price: number,
     category: string,
     stock: number,
-    images: string[],
+    image: string,
     status: boolean
   ): Promise<IProduct | null> {
     return await Product.findByIdAndUpdate(
@@ -51,7 +44,7 @@ class ProductService {
         price,
         category,
         stock,
-        images,
+        image,
         status,
         updatedAt: new Date(),
       },

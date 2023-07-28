@@ -42,26 +42,6 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hey this is my API running 🥳");
 });
 
-app.get("/generateCategories", async (req: Request, res: Response) => {
-  try {
-    await generateCategories();
-    res.send("Hey this is my API running 🥳");
-  } catch (error) {
-    console.error("Error generating products:", error);
-    res.status(500).send("Error generating products.");
-  }
-});
-
-app.get("/generateProducts", async (req: Request, res: Response) => {
-  try {
-    await generateProducts();
-    res.send("Hey this is my API running 🥳");
-  } catch (error) {
-    console.error("Error generating products:", error);
-    res.status(500).send("Error generating products.");
-  }
-});
-
 app.get("/generateOrders", async (req: Request, res: Response) => {
   try {
     await generateOrders();

@@ -1,24 +1,60 @@
 // controllers/productController.ts
 import { Request, Response } from "express";
 import ProductService from "../services/productService";
+import logger from "../utils/logger";
+import {
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+} from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const productService = new ProductService();
 
+// Set up AWS S3
+const s3 = new S3Client({
+  region: process.env.AWS_S3_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_S3_ACCESS_KEY ?? "your_default_access_key_id",
+    secretAccessKey:
+      process.env.AWS_S3_SECRET ?? "your_default_secret_access_key",
+  },
+});
+
 export const createProduct = async (req: Request, res: Response) => {
   try {
-    const { name, description, price, category, stock, images, status } =
+    const { name, description, price, category, stock, image, status } =
       req.body;
-    const newProduct = await productService.createProduct(
-      name,
-      description,
-      price,
-      category,
-      stock,
-      images,
-      status
-    );
-    res.status(201).json(newProduct);
+
+    // Check if the image is present in the request
+    if (req.file) {
+      const uniqueFilename = `category-${Date.now()}-${req.file.originalname}`;
+
+      // Ensure that S3_BUCKET_NAME is defined and has a valid value
+      if (!process.env.AWS_S3_NAME) {
+        throw new Error(
+          "S3 bucket name is not defined in environment variables."
+        );
+      }
+
+      const params = {
+        Bucket: process.env.AWS_S3_NAME ?? "",
+        Key: uniqueFilename,
+        Body: req.file.buffer,
+      };
+
+      // Upload the file to S3
+      await s3.send(new PutObjectCommand(params));
+
+      // Save the newCategoryData to MongoDB using your Category model
+      await productService.createProduct({
+        ...req.body,
+        image: uniqueFilename,
+      });
+    }
+    res.status(201).json("Product Created Successfully");
   } catch (error) {
+    logger.error(error);
     res.status(500).json({ error: "Unable to create product." });
   }
 };
@@ -26,8 +62,20 @@ export const createProduct = async (req: Request, res: Response) => {
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
     const products = await productService.getAllProducts();
+
+    for (const product of products) {
+      const getObjectParams = {
+        Bucket: process.env.AWS_S3_NAME ?? "",
+        Key: product.image,
+      };
+
+      const command = new GetObjectCommand(getObjectParams);
+      product.image = await getSignedUrl(s3, command, { expiresIn: 3600 });
+    }
+
     res.json(products);
   } catch (error) {
+    logger.error(error);
     res.status(500).json({ error: "Unable to fetch products." });
   }
 };
@@ -46,7 +94,7 @@ export const getProductById = async (req: Request, res: Response) => {
 
 export const updateProduct = async (req: Request, res: Response) => {
   try {
-    const { name, description, price, category, stock, images, status } =
+    const { name, description, price, category, stock, image, status } =
       req.body;
     const updatedProduct = await productService.updateProduct(
       req.params.id,
@@ -55,7 +103,7 @@ export const updateProduct = async (req: Request, res: Response) => {
       price,
       category,
       stock,
-      images,
+      image,
       status
     );
     if (!updatedProduct) {
