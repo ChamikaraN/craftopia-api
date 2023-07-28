@@ -10,8 +10,6 @@ import employeeRouter from "./routes/employee";
 import categoryRouter from "./routes/category";
 import productRouter from "./routes/product";
 import orderRouter from "./routes/order";
-import generateCategories from "./faker/generateCategories";
-import generateProducts from "./faker/generateProducts";
 import generateOrders from "./faker/generateOrders";
 
 const app: Application = express();
