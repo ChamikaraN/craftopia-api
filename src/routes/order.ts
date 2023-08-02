@@ -7,13 +7,14 @@ import {
   updateOrder,
   deleteOrder,
 } from "../controllers/orderController";
+import authenticate from "../middleware/authMiddleware";
 
 const router = express.Router();
 
 router.post("/", createOrder);
-router.get("/", getAllOrders);
-router.get("/:id", getOrderById);
-router.put("/:id", updateOrder);
-router.delete("/:id", deleteOrder);
+router.get("/", authenticate, getAllOrders);
+router.get("/:id", authenticate, getOrderById);
+router.put("/:id", authenticate, updateOrder);
+router.delete("/:id", authenticate, deleteOrder);
 
 export default router;

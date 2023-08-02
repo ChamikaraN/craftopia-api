@@ -1,69 +1,39 @@
-I have simple online shop that sells craft items. for this shop im using express and mongodb as my backend.
+Total Categories: Display the total number of categories available in the shop.
 
-in this mongodb database i have collections for users, products, category, and orders. 
+Total Products: Show the total number of products available in the shop.
 
-can you suggest me best collection schemas for each of them ?
+Total Orders: Display the total number of orders placed by customers.
 
+Total Revenue: Show the total revenue generated from all completed orders.
 
-this is my updated users collection
-{
-  _id: ObjectId,
-  username: String,
-  email: String,
-  password: String,
-  phone: String,
-  role: String,  
-  createdAt: Date,
-  updatedAt: Date
-}
+Top-Selling Products: Display a list of the top-selling products based on the quantity sold or revenue generated. You can show the product name, image, and sales quantity/revenue.
 
+Low-Stock Products: Highlight products with low stock levels (e.g., stock less than 10) to prioritize restocking efforts. Show the product name and current stock quantity.
 
-this is my updated Category Collection:
+Recent Orders: Show a list of the most recent orders placed by customers. Display the order ID, customer name, order date, and order status.
 
-{
-  _id: ObjectId,
-  name: String,
-  description: String,
-  image: String,
-  status: boolean, 
-  createdAt: Date,
-  updatedAt: Date
-}
+Order Status Breakdown: Display a pie chart representing the distribution of order statuses, such as pending, processing, shipped, etc.
 
-can you provide me best crud operations for this with typescript
+Total Customers: Show the total number of registered customers or users.
 
-this is my updated Products Collection:
-{
-  _id: ObjectId,
-  name: String,
-  description: String,
-  price: Number,
-  category: ObjectId,  
-  stock: Number,
-  images: [String],
-  status: boolean, 
-  createdAt: Date,
-  updatedAt: Date
-}
-can you provide me best crud operations for this with typescript
+Customer Feedback and Ratings: Display a summary of customer feedback and ratings for products and services. You can show the average product rating and the number of reviews.
 
-this is my updated Orders Collection:
-{
-  {
-  _id: ObjectId, 
-  products: [
-    {
-      product: ObjectId, 
-      quantity: Number
-    }
-  ],
-  totalAmount: Number,
-  customerName : String,
-  contactNumber: String,
-  shippingAddress: String,
-  status: String,  
-  createdAt: Date,
-  updatedAt: Date
-}
-}
-can you provide me best crud operations for this with typescript. I need separate model,route,controller and service files
+Average Order Value: Show the average order value (total revenue divided by the number of orders).
+
+Out-of-Stock Products: Highlight products that are currently out of stock to prioritize restocking efforts. Show the product name and expected restocking date if available.
+
+Sales Performance over Time: Show a line chart or area chart displaying the sales performance over a specific period (e.g., weekly or monthly). This can help identify trends and seasonality.
+
+Most Popular Categories: Identify the categories that generate the most revenue or have the highest sales. Show the category name and revenue/sales metrics.
+
+Refund and Return Requests: Show the number of refund and return requests and their status (approved, pending, rejected).
+
+Top Customers: Identify the top customers based on their total spending and the number of orders placed. Show customer names and total spending.
+
+Website Traffic: Show website traffic metrics such as total visitors, unique visitors, and page views. You can use a line chart to visualize traffic trends.
+
+Conversion Rate: Calculate and display the conversion rate of visitors to customers.
+
+Most Popular Search Terms: Identify the most frequently searched terms on the website to improve product visibility and search functionality.
+
+Abandoned Cart Analysis: Identify the number of abandoned carts and take measures to recover them. Show the cart contents and customer details.

@@ -44,6 +44,10 @@ class CategoryService {
   async deleteCategory(id: string): Promise<ICategory | null> {
     return await Category.findByIdAndDelete(id);
   }
+
+  async getTotalCategoriesCount(): Promise<number> {
+    return await Category.countDocuments();
+  }
 }
 
 export default CategoryService;

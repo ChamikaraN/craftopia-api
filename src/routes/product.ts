@@ -8,15 +8,16 @@ import {
   updateProduct,
   deleteProduct,
 } from "../controllers/productController";
+import authenticate from "../middleware/authMiddleware";
 
 const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-router.post("/", upload.single("image"), createProduct);
+router.post("/", upload.single("image"), authenticate, createProduct);
 router.get("/", getAllProducts);
 router.get("/:id", getProductById);
-router.put("/:id", updateProduct);
-router.delete("/:id", deleteProduct);
+router.put("/:id", authenticate, updateProduct);
+router.delete("/:id", authenticate, deleteProduct);
 
 export default router;

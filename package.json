@@ -9,7 +9,8 @@
     "build": "tsc",
     "serve": "node dist/server.js",
     "lint": "eslint src --ext .ts",
-    "prettify": "prettier --write \"src/**/*.ts\""
+    "prettify": "prettier --write \"src/**/*.ts\"",
+    "test": "jest"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.378.0",
@@ -34,6 +35,7 @@
     "@faker-js/faker": "^8.0.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/jest": "^29.5.3",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/mongodb-memory-server": "^2.3.0",
     "@types/mongoose": "^5.11.97",
@@ -41,13 +43,20 @@
     "@types/node": "^16.11.5",
     "@typescript-eslint/eslint-plugin": "^5.9.1",
     "@typescript-eslint/parser": "^5.9.1",
+    "chai": "^4.3.7",
+    "chai-http": "^4.4.0",
     "concurrently": "^7.0.0",
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^29.6.2",
+    "mock-req-res": "^1.2.1",
     "mongodb-memory-server": "^8.12.2",
     "nodemon": "^2.0.13",
     "prettier": "^2.4.1",
+    "sinon": "^15.2.0",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.1",
     "typescript": "^4.5.4"
   },
   "engines": {

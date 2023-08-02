@@ -1,6 +1,6 @@
 // controllers/orderController.ts
 import { Request, Response } from "express";
-import OrderService from "../services/orderService.js";
+import OrderService from "../services/orderService";
 
 const orderService = new OrderService();
 
@@ -12,15 +12,13 @@ export const createOrder = async (req: Request, res: Response) => {
       customerName,
       contactNumber,
       shippingAddress,
-      status,
     } = req.body;
     const newOrder = await orderService.createOrder(
       products,
       totalAmount,
       customerName,
       contactNumber,
-      shippingAddress,
-      status
+      shippingAddress
     );
     res.status(201).json(newOrder);
   } catch (error) {

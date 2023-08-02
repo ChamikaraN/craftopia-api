@@ -32,6 +32,27 @@ function generateToken(payload: TokenPayload, expiresIn: string): string {
   return jwt.sign(payload, secretKey, { expiresIn });
 }
 
+// Service function for authenticating user and generating tokens
+export async function authenticateUserService(
+  username: string,
+  password: string
+): Promise<TokenResponse> {
+  // Your authentication logic goes here.
+  // For simplicity, we'll hardcode the user details.
+  const hardcodedUser = { username: "admin", password: "admin" };
+
+  if (
+    username === hardcodedUser.username &&
+    password === hardcodedUser.password
+  ) {
+    // User is authenticated, generate tokens
+    return generateTokens();
+  } else {
+    // User authentication failed
+    throw new Error("Invalid credentials");
+  }
+}
+
 // Service function for refreshing an access token
 export function refreshAccessToken(refreshToken: string): Promise<string> {
   return new Promise<string>((resolve, reject) => {
