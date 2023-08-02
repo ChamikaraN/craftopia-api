@@ -1,8 +1,6 @@
-// controllers/orderController.ts
-import { Request, Response } from "express";
-import OrderService from "../services/orderService";
-
-const orderService = new OrderService();
+import { Request, Response } from 'express';
+import * as orderService from '../services/orderService';
+import logger from '../utils/logger';
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
@@ -13,16 +11,18 @@ export const createOrder = async (req: Request, res: Response) => {
       contactNumber,
       shippingAddress,
     } = req.body;
-    const newOrder = await orderService.createOrder(
+    const orderData = {
       products,
       totalAmount,
       customerName,
       contactNumber,
-      shippingAddress
-    );
+      shippingAddress,
+    };
+    const newOrder = await orderService.createOrder(orderData);
     res.status(201).json(newOrder);
   } catch (error) {
-    res.status(500).json({ error: "Unable to create order." });
+    logger.error(error);
+    res.status(500).json({ error });
   }
 };
 
@@ -31,19 +31,22 @@ export const getAllOrders = async (req: Request, res: Response) => {
     const orders = await orderService.getAllOrders();
     res.json(orders);
   } catch (error) {
-    res.status(500).json({ error: "Unable to fetch orders." });
+    logger.error(error);
+    res.status(500).json({ error: 'Unable to fetch orders.' });
   }
 };
 
 export const getOrderById = async (req: Request, res: Response) => {
   try {
-    const order = await orderService.getOrderById(req.params.id);
+    const orderData = { id: req.params.id };
+    const order = await orderService.getOrderById(orderData);
     if (!order) {
-      return res.status(404).json({ error: "Order not found." });
+      return res.status(404).json({ error: 'Order not found.' });
     }
     res.json(order);
   } catch (error) {
-    res.status(500).json({ error: "Unable to fetch order." });
+    logger.error(error);
+    res.status(500).json({ error: 'Unable to fetch order.' });
   }
 };
 
@@ -57,32 +60,36 @@ export const updateOrder = async (req: Request, res: Response) => {
       shippingAddress,
       status,
     } = req.body;
-    const updatedOrder = await orderService.updateOrder(
-      req.params.id,
+    const orderData = {
+      id: req.params.id,
       products,
       totalAmount,
       customerName,
       contactNumber,
       shippingAddress,
-      status
-    );
+      status,
+    };
+    const updatedOrder = await orderService.updateOrder(orderData);
     if (!updatedOrder) {
-      return res.status(404).json({ error: "Order not found." });
+      return res.status(404).json({ error: 'Order not found.' });
     }
     res.json(updatedOrder);
   } catch (error) {
-    res.status(500).json({ error: "Unable to update order." });
+    logger.error(error);
+    res.status(500).json({ error: 'Unable to update order.' });
   }
 };
 
 export const deleteOrder = async (req: Request, res: Response) => {
   try {
-    const deletedOrder = await orderService.deleteOrder(req.params.id);
+    const orderData = { id: req.params.id };
+    const deletedOrder = await orderService.deleteOrder(orderData);
     if (!deletedOrder) {
-      return res.status(404).json({ error: "Order not found." });
+      return res.status(404).json({ error: 'Order not found.' });
     }
     res.json(deletedOrder);
   } catch (error) {
-    res.status(500).json({ error: "Unable to delete order." });
+    logger.error(error);
+    res.status(500).json({ error: 'Unable to delete order.' });
   }
 };

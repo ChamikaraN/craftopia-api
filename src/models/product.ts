@@ -1,5 +1,5 @@
 // models/productModel.ts
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IProduct extends Document {
   name: string;
@@ -9,6 +9,7 @@ export interface IProduct extends Document {
   stock: number;
   image: string;
   status: boolean;
+  noOfSales: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -28,7 +29,7 @@ const productSchema: Schema<IProduct> = new mongoose.Schema({
   },
   category: {
     type: Schema.Types.ObjectId,
-    ref: "Category",
+    ref: 'Category',
     required: true,
   },
   stock: {
@@ -43,6 +44,10 @@ const productSchema: Schema<IProduct> = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+  noOfSales: {
+    type: Number,
+    required: true,
+  },
   createdAt: {
     type: Date,
     required: true,
@@ -53,5 +58,5 @@ const productSchema: Schema<IProduct> = new mongoose.Schema({
   },
 });
 
-const Product = mongoose.model<IProduct>("Product", productSchema);
+const Product = mongoose.model<IProduct>('Product', productSchema);
 export default Product;
