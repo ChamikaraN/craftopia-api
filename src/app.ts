@@ -10,7 +10,6 @@ import categoryRouter from './routes/category';
 import productRouter from './routes/product';
 import orderRouter from './routes/order';
 import dashboardRouter from './routes/dashboard';
-// import './swagger.js';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import swaggerOptions from './swagger';
