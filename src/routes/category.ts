@@ -12,7 +12,12 @@ import authenticate from '../middleware/authMiddleware';
 
 const router = express.Router();
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 10 * 1024 * 1024,
+  },
+});
 
 /**
  * @swagger

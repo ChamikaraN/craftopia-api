@@ -11,7 +11,7 @@ export async function createProduct(product: any): Promise<IProduct> {
     stock: product.stock,
     image: product.image,
     status: product.status,
-    numberOfSales: 0,
+    noOfSales: 0,
     createdAt: new Date(),
     updatedAt: new Date(),
   });
