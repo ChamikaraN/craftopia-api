@@ -22,7 +22,10 @@ const PORT = process.env.PORT ?? 4000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const allowedOrigins = ['*'];
+const allowedOrigins = [
+  'https://craftopia-mauve.vercel.app/',
+  'http://localhost:5173',
+];
 app.use(
   cors({
     origin: allowedOrigins,
