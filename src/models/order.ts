@@ -1,10 +1,10 @@
 // models/orderModel.ts
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IOrder extends Document {
   products: {
     product: mongoose.Types.ObjectId;
-    price: { type: Number; required: true };
+    price: { type: number; required: true };
     quantity: number;
   }[];
   totalAmount: number;
@@ -19,7 +19,7 @@ export interface IOrder extends Document {
 const orderSchema: Schema<IOrder> = new mongoose.Schema({
   products: [
     {
-      product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
+      product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
       price: { type: Number, required: true },
       quantity: { type: Number, required: true },
     },
@@ -33,5 +33,5 @@ const orderSchema: Schema<IOrder> = new mongoose.Schema({
   updatedAt: { type: Date, required: true },
 });
 
-const Order = mongoose.model<IOrder>("Order", orderSchema);
+const Order = mongoose.model<IOrder>('Order', orderSchema);
 export default Order;

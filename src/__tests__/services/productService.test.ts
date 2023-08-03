@@ -1,5 +1,4 @@
 import * as productService from '../../services/productService';
-import Product from '../../models/product';
 
 describe('Product Service', () => {
   afterEach(() => {

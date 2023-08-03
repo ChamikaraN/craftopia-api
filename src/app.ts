@@ -10,6 +10,10 @@ import categoryRouter from './routes/category';
 import productRouter from './routes/product';
 import orderRouter from './routes/order';
 import dashboardRouter from './routes/dashboard';
+// import './swagger.js';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import swaggerOptions from './swagger';
 
 const app: Application = express();
 const PORT = process.env.PORT ?? 4000;
@@ -18,10 +22,7 @@ const PORT = process.env.PORT ?? 4000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const allowedOrigins = [
-  'https://employee-management-frontend-chami.vercel.app',
-  'http://localhost:5173',
-];
+const allowedOrigins = ['*'];
 app.use(
   cors({
     origin: allowedOrigins,
@@ -33,6 +34,9 @@ app.use(
 );
 
 app.use(helmet());
+
+const swaggerSpecs = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // Testing root endpoint
 app.get('/', async (req: Request, res: Response) => {

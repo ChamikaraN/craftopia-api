@@ -1,6 +1,5 @@
 import Order, { IOrder } from '../models/order';
 import Product from '../models/product';
-import logger from '../utils/logger';
 
 export async function createOrder(orderData: any): Promise<IOrder> {
   const {
